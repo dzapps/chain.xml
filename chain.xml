@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 <!-- chain.xml v1.0 | https://github.com/TheKaozXD/chain.xml -->
 <head>
   <meta charset="UTF-8"/>
@@ -15,9 +15,9 @@
 <b:skin><![CDATA[
 /*CONFIG STYLE*/
 ]]></b:skin>
-</head>
+&lt;!--</head>--&gt;&lt;/head&gt;
 <body>
-<b:section id="blog" maxwidget="1">
+<b:section id="Template" maxwidget="1">
 
 
   <!-- Blog -->
@@ -27,7 +27,7 @@
     <b:includable id='main' var='top'>
 
       <b:loop values='data:posts' var='post'>
-        
+
         <b:if cond='data:view.isMultipleItems'> <!-- Si estamos en index/search/searchLabel -->
 
           <b:include data='post' name='post'/> <!-- agrego entradas -->
@@ -35,6 +35,9 @@
           <b:else/> <!-- caso contrario, estamos en post/page -->
 
           <b:include data='post' name='post'/> <!-- agrego entradas -->
+
+          <!-- agrego comentarios -->
+          <b:include data='post' name='comments'/>
 
         </b:if>
 
@@ -74,7 +77,15 @@
        <!-- entradas -->
       <b:if cond='data:view.isMultipleItems'> <!-- Valido para index/search/searchLabel -->
 
+        <div>
+          <a expr:href="data:post.url">
+          <data:post.title/>
+          </a>
+        </div>
+
         <b:elseif cond='data:view.isPost'/> <!-- Valido para entradas/post -->
+
+        <data:post.body/>
 
         <b:elseif cond='data:view.isPage'/> <!-- Valido para páginas/page -->
 
@@ -91,5 +102,7 @@
 
   </b:widget>  
 </b:section>
-</body>
+<!-- Google Analytics -->
+<b:include data='blog' name='google-analytics'/>
+&lt;!--</body>--&gt;&lt;/body&gt;
 </html>
