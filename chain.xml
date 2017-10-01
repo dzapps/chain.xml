@@ -8,7 +8,7 @@
 
 <style>
 <![CDATA[
-/*Global  STYLE*/
+/*GLOBAL  STYLE*/
 ]]>
 </style>
 
@@ -17,8 +17,7 @@
 ]]></b:skin>
 &lt;!--</head>--&gt;&lt;/head&gt;
 <body>
-<b:section id="Template" maxwidget="1">
-
+<b:section id="Template">
 
   <!-- Blog -->
 
@@ -37,7 +36,7 @@
           <b:include data='post' name='post'/> <!-- agrego entradas -->
 
           <!-- agrego comentarios -->
-          <b:include data='post' name='comments'/>
+          <b:include data='post' name='comentarios'/>
 
         </b:if>
 
@@ -45,6 +44,20 @@
 
       <!-- navigation/navegación -->
       <b:include name='nextprev'/>
+
+    </b:includable>
+    
+    <b:includable id="comentarios">
+
+      <div class="comments">
+        <h4><data:post.commentLabelFull/></h4>
+      <div class='comments-content'>
+        <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>
+        <data:post.commentHtml/>
+      </div>
+        <b:include data='post' name='threaded-comment-form'/>
+
+      </div>
 
     </b:includable>
 
@@ -96,8 +109,26 @@
     <b:includable id='postQuickEdit' var='post'><!-- vacio --></b:includable>
     <b:includable id='shareButtons' var='post'><!-- vacio --></b:includable>
     <b:includable id='status-message'><!-- vacio --></b:includable>
-    <b:includable id='threaded-comment-form' var='post'><!-- vacio --></b:includable>
-    <b:includable id='threaded_comment_js' var='post'><!-- vacio --></b:includable>
+    <b:includable id='threaded-comment-form' var='post'>
+      <div class='comment-form'>
+        <a name='comment-form'/>
+        <p><data:blogCommentMessage/></p>
+        <data:blogTeamBlogMessage/>
+        <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+        <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+        <data:post.cmtfpIframe/>
+        <script type='text/javascript'>
+          BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+        </script>
+      </div>
+    </b:includable>
+
+    <b:includable id='threaded_comment_js' var='post'>
+      <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+      <b:template-script inline='true' name='threaded_comments'/>
+      <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
+    </b:includable>
+
     <b:includable id='threaded_comments' var='post'><!-- vacio --></b:includable>
 
   </b:widget>  
