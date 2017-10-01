@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<!-- chain.xml v1.0 | https://github.com/TheKaozXD/chain.xml -->
+<head>
+  <meta charset="UTF-8"/>
+  <title><data:blog.pageTitle/></title>
+
+<style>
+<![CDATA[
+/*Global  STYLE*/
+]]>
+</style>
+
+<b:skin><![CDATA[
+/*CONFIG STYLE*/
+]]></b:skin>
+</head>
+<body>
+<b:section id="blog" maxwidget="1">
+
+
+  <!-- Blog -->
+
+  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog'>
+
+    <b:includable id='main' var='top'>
+
+      <b:loop values='data:posts' var='post'>
+        
+        <b:if cond='data:view.isMultipleItems'> <!-- Si estamos en index/search/searchLabel -->
+
+          <b:include data='post' name='post'/> <!-- agrego entradas -->
+
+          <b:else/> <!-- caso contrario, estamos en post/page -->
+
+          <b:include data='post' name='post'/> <!-- agrego entradas -->
+
+        </b:if>
+
+      </b:loop>
+
+      <!-- navigation/navegación -->
+      <b:include name='nextprev'/>
+
+    </b:includable>
+
+    <b:includable id='backlinkDeleteIcon' var='backlink'><!-- vacio --></b:includable>
+    <b:includable id='backlinks' var='post'><!-- vacio --></b:includable>
+    <b:includable id='comment-form' var='post'><!-- vacio --></b:includable>
+    <b:includable id='commentDeleteIcon' var='comment'><!-- vacio --></b:includable>
+    <b:includable id='comment_count_picker' var='post'><!-- vacio --></b:includable>
+    <b:includable id='comment_picker' var='post'><!-- vacio --></b:includable>
+    <b:includable id='comments' var='post'><!-- vacio --></b:includable>
+    <b:includable id='feedLinks'><!-- vacio --></b:includable>
+    <b:includable id='feedLinksBody' var='links'><!-- vacio --></b:includable>
+    <b:includable id='iframe_comments' var='post'><!-- vacio --></b:includable>
+    <b:includable id='mobile-index-post' var='post'><!-- vacio --></b:includable>
+    <b:includable id='mobile-main' var='top'><!-- vacio --></b:includable>
+    <b:includable id='mobile-nextprev'><!-- vacio --></b:includable>
+    <b:includable id='mobile-post' var='post'><!-- vacio --></b:includable>
+
+    <b:includable id='nextprev'>
+      
+      <div class='blog-pager' id='blog-pager'>
+        <b:if cond='data:olderPageUrl'><a expr:href='data:olderPageUrl'  class='blog-pager-older-link'>antiguas</a></b:if>
+        <b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl' class='blog-pager-newer-link'>recientes</a></b:if>
+      </div>
+
+    </b:includable>
+   
+    <b:includable id='post' var='post'>
+
+       <!-- entradas -->
+      <b:if cond='data:view.isMultipleItems'> <!-- Valido para index/search/searchLabel -->
+
+        <b:elseif cond='data:view.isPost'/> <!-- Valido para entradas/post -->
+
+        <b:elseif cond='data:view.isPage'/> <!-- Valido para páginas/page -->
+
+      </b:if>
+    
+    </b:includable>
+
+    <b:includable id='postQuickEdit' var='post'><!-- vacio --></b:includable>
+    <b:includable id='shareButtons' var='post'><!-- vacio --></b:includable>
+    <b:includable id='status-message'><!-- vacio --></b:includable>
+    <b:includable id='threaded-comment-form' var='post'><!-- vacio --></b:includable>
+    <b:includable id='threaded_comment_js' var='post'><!-- vacio --></b:includable>
+    <b:includable id='threaded_comments' var='post'><!-- vacio --></b:includable>
+
+  </b:widget>  
+</b:section>
+</body>
+</html>
