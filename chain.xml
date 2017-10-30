@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
-<!-- chain.xml v1.0 | https://github.com/TheKaozXD/chain.xml -->
+
+<!-- chain.xml v1.1.5 | https://github.com/TheKaozXD/chain.xml -->
+
 <head>
   <meta expr:charset='data:blog.encoding'/>
 
 <!-- meta etiquetas para seo -->
-
-
 
 <!-- Optimizo los título -->
 
@@ -34,6 +34,43 @@
 
 </b:if>
 
+<!-- meta description -->
+<b:if cond='data:blog.metaDescription'>
+  <!-- si tenemos activadas las meta description -->
+  <meta name="description" expr:content="data:blog.metaDescription"/>
+
+  <b:else/>
+
+  <!-- caso contrario -->
+
+  <meta name="description" expr:content='"Revisa la entrada : " + data:view.title'/>
+
+</b:if>
+
+<!-- meta robots -->
+
+<b:if cond='data:view.isMultipleItems'>
+  
+  <meta name="robots" content="Index, Follow"/>
+
+  <b:else/>
+  
+  <!-- Si estamos en la página de búsqueda y/o etiquetas, entonces no indexeo pero si dejo que la rastree -->
+  <b:if cond='data:view.isLabelSearch or data:view.isSearch'>
+    
+    <meta name="robots" content="NoIndex, Follow"/>
+
+    <b:else/>
+    
+    <meta name="robots" content="Index, Follow"/>
+
+  </b:if>
+
+</b:if>
+
+<!-- URL Canonica -->
+<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+
 <!-- Open Graph/Twitter cards  -->
 
 <b:if cond='data:view.isMultipleItems'>
@@ -41,24 +78,24 @@
   <meta property="og:title" expr:content="data:view.title" />
   <meta property="og:description" expr:content='data:view.title'/>
   <meta property="og:url" expr:content="data:view.url" />
-  <meta property="og:image" expr:content="{Imagen website}" />
-  <meta property="og:image:url" expr:content="{Imagen website}" />
+  <meta property="og:image" content="{IMAGEN SITIO WEB}" />
+  <meta property="og:image:url" content="{IMAGEN SITIO WEB}" />
   <meta property="og:image:alt" expr:content="data:view.title"/>
   <meta property="og:type" content="website" />
   <!-- twitter -->
   <meta content='summary' name='twitter:card'/>
   <meta content='@blogger' name='twitter:site'/>
   <meta content='@usuario' name='twitter:creator'/>
-  <meta expr:content='data:blog.pageName' name='twitter:title'/>
+  <meta expr:content='data:view.title' name='twitter:title'/>
   <meta expr:content='data:view.title' name='twitter:description'/>
-  <meta expr:content='{Imagen website}' name='twitter:image:src'/>
+  <meta content='{IMAGEN SITIO WEB}' name='twitter:image:src'/>
   <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
 
   <b:else/>
  
  <!-- si estamos en entradas individuales o páginas -->
 
-  <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
+  <link href='https://plus.google.com/IDPAGINAGOOGLE' rel='Publisher'/>
   <meta property="og:title" expr:content="data:view.title" />
   <meta property="og:description" expr:content='data:view.title + " : Leer artículo completo."'/>
   <meta property="og:url" expr:content="data:view.url" />
@@ -97,6 +134,7 @@
 
 
 <b:skin><![CDATA[
+
 /*CONFIG STYLE*/
 
 ]]></b:skin>
@@ -123,7 +161,7 @@
           <b:include data='post' name='post'/> <!-- agrego entradas -->
 
           <!-- agrego comentarios -->
-          <b:include data='post' name='comentarios'/>
+          <b:include data='post' name='commentariosBlogger'/>
 
         </b:if>
 
@@ -134,7 +172,7 @@
 
     </b:includable>
     
-    <b:includable id="comentarios">
+    <b:includable id="commentariosBlogger">
 
       <div class="comments">
         <h4><data:post.commentLabelFull/></h4>
@@ -177,15 +215,9 @@
        <!-- entradas -->
       <b:if cond='data:view.isMultipleItems'> <!-- Valido para index/search/searchLabel -->
 
-        <div>
-          <a expr:href="data:post.url">
-          <data:post.title/>
-          </a>
-        </div>
 
         <b:elseif cond='data:view.isPost'/> <!-- Valido para entradas/post -->
 
-        <data:post.body/>
 
         <b:elseif cond='data:view.isPage'/> <!-- Valido para páginas/page -->
 
