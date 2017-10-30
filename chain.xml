@@ -4,9 +4,35 @@
 <!-- chain.xml v1.0 | https://github.com/TheKaozXD/chain.xml -->
 <head>
   <meta expr:charset='data:blog.encoding'/>
-  <title><data:blog.pageTitle/></title>
 
 <!-- meta etiquetas para seo -->
+
+
+
+<!-- Optimizo los título -->
+
+<b:if cond='data:view.isError'>
+  
+  <title>Error en <data:blog.pageTitle/></title>
+
+  <b:else/>
+
+  <b:if cond='data:view.isPost or data:view.isPage'>
+
+    <title><data:blog.pageName/></title>
+
+
+    <b:elseif cond='data:view.isLabelSearch or data:view.isSearch'/>
+
+    <title><data:blog.pageName/></title>
+
+    <b:else/>
+
+    <title><data:blog.pageTitle/></title>
+
+  </b:if>
+
+</b:if>
 
 <!-- Open Graph/Twitter cards  -->
 
@@ -31,6 +57,7 @@
   <b:else/>
  
  <!-- si estamos en entradas individuales o páginas -->
+
   <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
   <meta property="og:title" expr:content="data:view.title" />
   <meta property="og:description" expr:content='data:view.title + " : Leer artículo completo."'/>
@@ -48,6 +75,7 @@
   <meta expr:content='data:view.title + " : Leer artículo completo."' name='twitter:description'/>
   <meta expr:content='data:blog.postImageUrl' name='twitter:image:src'/>
   <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
+
 </b:if>
 
 
