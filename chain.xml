@@ -1,10 +1,65 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
+<html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
 <!-- chain.xml v1.0 | https://github.com/TheKaozXD/chain.xml -->
 <head>
-  <meta charset="UTF-8"/>
+  <meta expr:charset='data:blog.encoding'/>
   <title><data:blog.pageTitle/></title>
+
+<!-- meta etiquetas para seo -->
+
+<!-- Open Graph/Twitter cards  -->
+
+<b:if cond='data:view.isMultipleItems'>
+  <!-- si estamos en la página principal/búsuqeda etc... -->
+  <meta property="og:title" expr:content="data:view.title" />
+  <meta property="og:description" expr:content='data:view.title'/>
+  <meta property="og:url" expr:content="data:view.url" />
+  <meta property="og:image" expr:content="{Imagen website}" />
+  <meta property="og:image:url" expr:content="{Imagen website}" />
+  <meta property="og:image:alt" expr:content="data:view.title"/>
+  <meta property="og:type" content="website" />
+  <!-- twitter -->
+  <meta content='summary' name='twitter:card'/>
+  <meta content='@blogger' name='twitter:site'/>
+  <meta content='@usuario' name='twitter:creator'/>
+  <meta expr:content='data:blog.pageName' name='twitter:title'/>
+  <meta expr:content='data:view.title' name='twitter:description'/>
+  <meta expr:content='{Imagen website}' name='twitter:image:src'/>
+  <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
+
+  <b:else/>
+ 
+ <!-- si estamos en entradas individuales o páginas -->
+  <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
+  <meta property="og:title" expr:content="data:view.title" />
+  <meta property="og:description" expr:content='data:view.title + " : Leer artículo completo."'/>
+  <meta property="og:url" expr:content="data:view.url" />
+  <meta property="og:image" expr:content="data:blog.postImageUrl" />
+  <meta property="og:image:url" expr:content="data:blog.postImageUrl" />
+  <meta property="og:image:alt" expr:content="data:view.title"/>
+  <meta property="og:type" content="website" />
+
+  <!-- twitter -->
+  <meta content='summary' name='twitter:card'/>
+  <meta content='@blogger' name='twitter:site'/>
+  <meta content='@usuario' name='twitter:creator'/>
+  <meta expr:content='data:blog.pageName' name='twitter:title'/>
+  <meta expr:content='data:view.title + " : Leer artículo completo."' name='twitter:description'/>
+  <meta expr:content='data:blog.postImageUrl' name='twitter:image:src'/>
+  <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
+</b:if>
+
+
+<!-- schema ld+json -->
+<script type='application/ld+json'>
+{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+
+<!--[if lt IE 9]>
+   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<![endif]-->
+<!-- END -->
 
 <style>
 <![CDATA[
@@ -12,9 +67,13 @@
 ]]>
 </style>
 
+
 <b:skin><![CDATA[
 /*CONFIG STYLE*/
+
 ]]></b:skin>
+
+
 &lt;!--</head>--&gt;&lt;/head&gt;
 <body>
 <b:section id="Template">
