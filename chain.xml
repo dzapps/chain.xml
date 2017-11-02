@@ -24,11 +24,11 @@
 
     <b:elseif cond='data:view.isLabelSearch or data:view.isSearch'/>
 
-    <title><data:blog.pageName/></title>
+      <title><data:blog.pageName/></title>
 
     <b:else/>
 
-    <title><data:blog.pageTitle/></title>
+      <title><data:blog.pageTitle/></title>
 
   </b:if>
 
@@ -121,7 +121,6 @@
 
 </b:if>
 
-
 <!-- schema ld+json -->
 <script type='application/ld+json'>
 {"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
@@ -167,7 +166,19 @@
           <b:include data='post' name='post'/> <!-- agrego entradas -->
 
           <!-- agrego comentarios -->
-          <b:include data='post' name='commentariosBlogger'/>
+          <b:if cond='data:view.isPreview'>
+            
+            <div class="alert">
+              Los comentarios no son necesarios en la vista previa.
+            </div>
+            <b:else/>
+
+            <b:if cond='data:post.allowComments'>
+              <b:include data='post' name='commentariosBlogger'/>
+            </b:if>
+            
+          </b:if>
+          
 
         </b:if>
 
@@ -207,6 +218,7 @@
     <b:includable id='mobile-nextprev'><!-- vacio --></b:includable>
     <b:includable id='mobile-post' var='post'><!-- vacio --></b:includable>
 
+    <!-- navegación -->
     <b:includable id='nextprev'>
       
       <div class='blog-pager' id='blog-pager'>
