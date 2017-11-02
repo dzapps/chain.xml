@@ -71,6 +71,12 @@
 <!-- URL Canonica -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
+<!-- favicon -->
+<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
+
+<!-- viewport (responsive) -->
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
+
 <!-- Open Graph/Twitter cards  -->
 
 <b:if cond='data:view.isMultipleItems'>
@@ -127,17 +133,17 @@
 <!-- END -->
 
 <style>
-<![CDATA[
+/*<![CDATA[*/
 /*GLOBAL  STYLE*/
-]]>
+/*]]>*/
 </style>
 
 
-<b:skin><![CDATA[
+<b:skin>/*<![CDATA[*/
 
 /*CONFIG STYLE*/
 
-]]></b:skin>
+/*]]>*/</b:skin>
 
 
 &lt;!--</head>--&gt;&lt;/head&gt;
