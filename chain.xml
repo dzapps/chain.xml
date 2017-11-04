@@ -103,7 +103,11 @@
 
   <link href='https://plus.google.com/IDPAGINAGOOGLE' rel='Publisher'/>
   <meta property="og:title" expr:content="data:view.title" />
-  <meta property="og:description" expr:content='data:view.title + " : Leer artículo completo."'/>
+  <b:if cond='data:blog.metaDescription'>
+      <meta property="og:description" expr:content='data:blog.metaDescription'/>
+    <b:else/>
+      <meta property="og:description" expr:content='data:view.title + " : Leer artículo completo."'/>
+  </b:if>
   <meta property="og:url" expr:content="data:view.url" />
   <meta property="og:image" expr:content="data:blog.postImageUrl" />
   <meta property="og:image:url" expr:content="data:blog.postImageUrl" />
@@ -115,7 +119,11 @@
   <meta content='@blogger' name='twitter:site'/>
   <meta content='@usuario' name='twitter:creator'/>
   <meta expr:content='data:blog.pageName' name='twitter:title'/>
-  <meta expr:content='data:view.title + " : Leer artículo completo."' name='twitter:description'/>
+  <b:if cond='data:blog.metaDescription'>
+      <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+    <b:else/>
+      <meta expr:content='data:view.title + " : Leer artículo completo."' name='twitter:description'/>
+  </b:if>
   <meta expr:content='data:blog.postImageUrl' name='twitter:image:src'/>
   <meta expr:content='data:blog.homepageUrl' name='twitter:domain'/>
 
