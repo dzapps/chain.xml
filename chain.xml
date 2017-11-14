@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
 
-<!-- chain.xml v1.1.5 | https://github.com/TheKaozXD/chain.xml -->
+<!-- chain.xml v0.1.5 | https://github.com/TheKaozXD/chain.xml -->
 
 <head>
   <meta expr:charset='data:blog.encoding'/>
@@ -42,7 +42,7 @@
   <b:else/>
 
   <!-- caso contrario -->
-
+  
   <meta name="description" expr:content='"Revisa la entrada : " + data:view.title'/>
 
 </b:if>
@@ -134,11 +134,6 @@
 {"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
-<!--[if lt IE 9]>
-   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-<![endif]-->
-<!-- END -->
-
 <style>
 /*<![CDATA[*/
 /*GLOBAL  STYLE*/
@@ -182,7 +177,20 @@
             <b:else/>
 
             <b:if cond='data:post.allowComments'>
-              <b:include data='post' name='commentariosBlogger'/>
+              <b:with var="nameComments" value='"blogger"'> <!-- elige entre blogger o disqus -->
+
+                  <!-- compruebo si se ha eligido blogger o disqus -->
+
+                  <b:if cond='nameComments === "disqus"'> <!-- Sí se ha eligido blogger -->
+
+                      <b:include data='post' expr:name='"commentarios"+nameCommets'/>
+
+                  <b:else/>
+                    <b:include data='post' name='"commentarios"+nameCommets'/>
+                  </b:if>
+                
+              </b:with>
+             
             </b:if>
             
           </b:if>
