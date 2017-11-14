@@ -174,22 +174,12 @@
             <div class="alert">
               Los comentarios no son necesarios en la vista previa.
             </div>
+
             <b:else/>
 
             <b:if cond='data:post.allowComments'>
-              <b:with var="nameComments" value='"blogger"'> <!-- elige entre blogger o disqus -->
 
-                  <!-- compruebo si se ha eligido blogger o disqus -->
-
-                  <b:if cond='nameComments === "disqus"'> <!-- Sí se ha eligido blogger -->
-
-                      <b:include data='post' expr:name='"commentarios"+nameCommets'/>
-
-                  <b:else/>
-                    <b:include data='post' name='"commentarios"+nameCommets'/>
-                  </b:if>
-                
-              </b:with>
+              <b:include data='post' expr:name='comentariosBlogger'/>
              
             </b:if>
             
@@ -205,7 +195,7 @@
 
     </b:includable>
     
-    <b:includable id="commentariosBlogger">
+    <b:includable id="commentariosblogger">
 
       <div class="comments">
         <h4><data:post.commentLabelFull/></h4>
