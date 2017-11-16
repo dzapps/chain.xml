@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
 
-<!-- chain.xml v0.1.7 | https://github.com/TheKaozXD/chain.xml -->
+<!-- chain.xml v0.1.76 | https://github.com/kurodezain/chain.xml -->
 
 <head>
   <meta expr:charset='data:blog.encoding'/>
@@ -177,9 +177,14 @@
 
             <b:else/>
 
-            <b:if cond='data:post.allowComments'>
+            <!-- Si está permitido comentar. -->
+            <b:if cond='data:post.allowComments'> 
 
-              <b:include data='post' expr:name='comentariosBlogger'/>
+              <b:if cond='data:post.allowNewComments'> <!-- Si no está permitido agregar nuevos comentarios -->
+                <data:post.noNewCommentsText/>
+              </b:if>
+
+              <b:include data='post' name='comentariosBlogger'/>
              
             </b:if>
             
@@ -195,15 +200,15 @@
 
     </b:includable>
     
-    <b:includable id="commentariosblogger">
+    <b:includable id="comentariosBlogger">
 
-      <div class="comments">
-        <h4><data:post.commentLabelFull/></h4>
-      <div class='comments-content'>
-        <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>
-        <data:post.commentHtml/>
-      </div>
-        <b:include data='post' name='threaded-comment-form'/>
+      <div class="comentarios">
+        <h4><data:messages.comments/></h4>
+        <div class="comentarios__contenido">
+          <data:post.commentHtml/>
+        </div>
+
+        <b:include name='threaded-comment-form'/>
 
       </div>
 
@@ -241,7 +246,7 @@
 
 
         <b:elseif cond='data:view.isPost'/> <!-- Valido para entradas/post -->
-
+        <data:post.body/>
 
         <b:elseif cond='data:view.isPage'/> <!-- Valido para páginas/page -->
 
