@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
 
 <!-- chain.xml v0.1.76 | https://github.com/kurodezain/chain.xml -->
 
@@ -150,6 +150,7 @@
 
 &lt;!--</head>--&gt;&lt;/head&gt;
 <body>
+
 <b:section id="template" name="{Nombre de mi Web}">
 
   <!-- Blog -->
@@ -172,17 +173,19 @@
           <b:if cond='data:view.isPreview'>
             
             <div class="alert">
-              Los comentarios no son necesarios en la vista previa.
+              Los comentarios no son necesarios en la vista previa. ;)
             </div>
 
             <b:else/>
 
             <!-- Si está permitido comentar. -->
             <b:if cond='data:post.allowComments'> 
+              <b:if cond='data:post.embedCommentForm'>
+                <b:include data='post' name='comentariosBlogger'/>
+              </b:if>
+            <b:else/>
 
-              <div class="alert"><b:eval expr='data:post.allowNewComments ? "" : data:post.noNewCommentsText'/></div>
-          
-              <b:include data='post' name='comentariosBlogger'/>
+            <div class="alert">Los comentarios están desactivados... :(</div>
              
             </b:if>
             
@@ -201,13 +204,25 @@
     <b:includable id="comentariosBlogger">
 
       <div class="comentarios">
+
         <h4><data:messages.comments/></h4>
+
         <div class="comentarios__contenido">
           <data:post.commentHtml/>
         </div>
 
-        <b:include name='threaded-comment-form'/>
+        <b:include name='threadedCommentJs'/>
+        
+        <b:if cond='data:post.allowNewComments'>
 
+            <b:include name='threadedCommentForm'/>
+
+            <b:else/>
+
+            <div class="alert"><data:post.noNewCommentsText/></div>
+
+        </b:if>
+        
       </div>
 
     </b:includable>
@@ -253,21 +268,19 @@
     <b:includable id='postQuickEdit' var='post'><!-- vacio --></b:includable>
     <b:includable id='shareButtons' var='post'><!-- vacio --></b:includable>
     <b:includable id='status-message'><!-- vacio --></b:includable>
-    <b:includable id='threaded-comment-form' var='post'>
+    <b:includable id='threadedCommentForm' var='post'>
       <div class='comment-form'>
-        <a name='comment-form'/>
-        <p><data:blogCommentMessage/></p>
-        <data:blogTeamBlogMessage/>
-        <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-        <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+        <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+        <data:this.messages.blogComment/>
         <data:post.cmtfpIframe/>
+        <iframe class='blogger-iframe-colorize blogger-comment-from-post' frameborder='0' width="100%" expr:height='data:cmtIframeInitialHeight ?: "180px"'  expr:src='data:post.commentFormIframeSrc'/>
         <script type='text/javascript'>
           BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
         </script>
       </div>
     </b:includable>
 
-    <b:includable id='threaded_comment_js' var='post'>
+    <b:includable id='threadedCommentJs' var='post'>
       <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
       <b:template-script inline='true' name='threaded_comments'/>
       <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
