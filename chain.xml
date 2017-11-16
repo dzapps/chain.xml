@@ -150,14 +150,14 @@
 
 &lt;!--</head>--&gt;&lt;/head&gt;
 <body>
-<b:section id="Template">
+<b:section id="template" name="{Nombre de mi Web}">
 
   <!-- Blog -->
 
   <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog'>
 
     <b:includable id='main' var='top'>
-
+    
       <b:loop values='data:posts' var='post'>
 
         <b:if cond='data:view.isMultipleItems'> <!-- Si estamos en index/search/searchLabel -->
@@ -180,10 +180,8 @@
             <!-- Si está permitido comentar. -->
             <b:if cond='data:post.allowComments'> 
 
-              <b:if cond='data:post.allowNewComments'> <!-- Si no está permitido agregar nuevos comentarios -->
-                <data:post.noNewCommentsText/>
-              </b:if>
-
+              <div class="alert"><b:eval expr='data:post.allowNewComments ? "" : data:post.noNewCommentsText'/></div>
+          
               <b:include data='post' name='comentariosBlogger'/>
              
             </b:if>
@@ -241,13 +239,11 @@
    
     <b:includable id='post' var='post'>
 
-       <!-- entradas -->
+       <!-- Imprimir entradas -->
       <b:if cond='data:view.isMultipleItems'> <!-- Valido para index/search/searchLabel -->
 
-
         <b:elseif cond='data:view.isPost'/> <!-- Valido para entradas/post -->
-        <data:post.body/>
-
+        
         <b:elseif cond='data:view.isPage'/> <!-- Valido para páginas/page -->
 
       </b:if>
