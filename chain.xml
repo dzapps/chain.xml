@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
 
-<!-- chain.xml v0.1.82 | https://github.com/kurodezain/chain.xml -->
+<!-- chain.xml v0.1.85 | https://github.com/kurodezain/chain.xml -->
 
 <head>
   <meta expr:charset='data:blog.encoding'/>
@@ -207,8 +207,8 @@
 
         <h4><data:messages.comments/></h4>
 
-        <div class="comentarios__contenido">
-          <data:post.commentHtml/>
+        <div class="comentarios comments" id="comments">
+            <div class='comments-content'><div id='comment-holder'><data:post.commentHtml/></div></div>
         </div>
 
         <b:include name='threadedCommentJs'/>
@@ -269,11 +269,11 @@
     <b:includable id='shareButtons' var='post'><!-- vacio --></b:includable>
     <b:includable id='status-message'><!-- vacio --></b:includable>
     <b:includable id='threadedCommentForm' var='post'>
-      <div class='comment-form'>
+      <div class='comment-form'><a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
         <h4 id='comment-post-message'><data:messages.postAComment/></h4>
         <data:this.messages.blogComment/>
         <data:post.cmtfpIframe/>
-        <iframe class='blogger-iframe-colorize blogger-comment-from-post' frameborder='0' width="100%" expr:height='data:cmtIframeInitialHeight ?: "180px"'  expr:src='data:post.commentFormIframeSrc'/>
+        <iframe class='blogger-iframe-colorize blogger-comment-from-post'  id='comment-editor' frameborder='0' width="100%" expr:height='data:cmtIframeInitialHeight ?: "245px"'  expr:src=''/>
         <script type='text/javascript'>
           BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
         </script>
