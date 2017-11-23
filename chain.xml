@@ -24,7 +24,7 @@
 
     <b:elseif cond='data:view.isLabelSearch or data:view.isSearch'/>
 
-      <title><data:blog.pageName/></title>
+      <title><b:eval expr='data:blog.pageName.length == 0 ? data:blog.pageTitle : data:blog.pageName'/></title>
 
     <b:else/>
 
@@ -144,6 +144,17 @@
 <b:skin>/*<![CDATA[*/
 
 /*CONFIG STYLE*/
+
+/* Fix Error imagen descuadrada. */
+
+[class*=separator] a {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+[class*="separator"] img {
+  height: auto;
+}
 
 /*]]>*/</b:skin>
 
