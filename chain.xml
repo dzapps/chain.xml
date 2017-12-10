@@ -75,7 +75,7 @@
 <b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
 <!-- viewport (responsive) -->
-<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
+<meta content='width=device-width,minimum-scale=1,initial-scale=1, maximum-scale=1' name='viewport'/>
 
 <!-- Open Graph/Twitter cards  -->
 
@@ -181,9 +181,9 @@
           <b:include data='post' name='post'/> <!-- agrego entradas -->
 
           <!-- agrego comentarios -->
-          <b:if cond='data:view.isPreview'>
+          <b:if cond='data:view.isPreview'> <!-- si estamos en la vista previa -->
             
-            <div class="alert">
+            <div class="alert"> <!-- Le hago saber al usuario mediante un mensaje -->
               Los comentarios no son necesarios en la vista previa. ;)
             </div>
 
@@ -192,9 +192,31 @@
             <!-- Si está permitido comentar. -->
             <b:if cond='data:post.allowComments'> 
               <b:if cond='data:post.embedCommentForm'>
-                <b:include data='post' name='comentariosBlogger'/>
+
+                <!-- Inserto los comentarios -->
+               <div class="comentarios">
+                <!--
+                Sistema de comentarios
+                type: elige entre Blogger, Disqus o Facebook. (1)
+
+                //Opciones Disqus
+                  disqusOption (object)
+                    -> shortName: "nombreDeMiDisqus".
+
+                //Opciones Facebook
+                  fbOption (object)
+                    -> numComments: 5.
+                -->
+                  <b:with var="commentsType" value='{type: "Blogger"}'> <!-- (1 -->
+
+                    <b:include data='post' expr:name='"comentarios" + data:commentsType.type'/> <!-- inserto los comentarios -->
+                    <noscript>Se necesita de Javascript para que los comentarios funcionen.</noscript>
+
+                  </b:with>
+               </div>
+
               </b:if>
-            <b:else/>
+            <b:else/> <!-- de no estar permitido, le hago saber al usuario mediante un mensaje -->
 
             <div class="alert">Los comentarios están desactivados... :(</div>
              
@@ -212,9 +234,7 @@
 
     </b:includable>
     
-    <b:includable id="comentariosBlogger">
-
-      <div class="comentarios">
+    <b:includable id="comentariosBlogger"> <!-- comentarios de blogger -->
 
         <h4><data:messages.comments/></h4>
 
@@ -222,20 +242,53 @@
             <div class='comments-content'><div id='comment-holder'><data:post.commentHtml/></div></div>
         </div>
 
-        <b:include name='threadedCommentJs'/>
+        <b:include name='threaded_comment_js'/>
         
         <b:if cond='data:post.allowNewComments'>
 
-            <b:include name='threadedCommentForm'/>
+            <b:include name='threaded-comment-form'/>
 
             <b:else/>
 
             <div class="alert"><data:post.noNewCommentsText/></div>
 
         </b:if>
-        
-      </div>
-
+    </b:includable>
+    
+    <!-- comentarios de Disqus -->
+    <b:includable id="comentariosDisqus">
+      <b:if cond='data:commentsType.disqusOption'> <!-- Comprobamos que estén las opciones disqusOption disponibles-->
+        <b:if cond='data:commentsType.disqusOption.shortName'> <!-- comprobamos que se haya escrito bien la opción shortName -->
+          <h4><data:messages.comments/></h4>
+          <div id="disqus_thread"></div>
+          <script type='text/javascript'>
+             var disqus_url = "<data:blog.canonicalUrl/>";
+             var disqusShortname=&quot;<data:commentsType.disqusOption.shortName/>&quot;;
+             //<![CDATA[
+             (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqusShortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+             })();//]]>
+          </script>  
+          <b:else/> <!-- de no ser así, lo hago saber -->
+          <div class="alert">El objeto <b>disqusOption.shortName</b> no existe.</div>
+        </b:if>
+        <b:else/> <!-- ...de no estar agrego un mensaje-->
+        <div class="alert">No se han encontrado opciones o el objecto <b>disqusOption</b> no existe.</div>
+      </b:if>    
+    </b:includable>
+    
+    <!-- comentarios de Facebook -->
+    <b:includable id="comentariosFacebook">
+      <b:if cond='data:commentsType.fbOption'><!-- Comprobamos que estén las opciones fbOption disponibles-->
+        <b:if cond='data:commentsType.fbOption.numComments'>
+          <div class="fb-comments" expr:data-href="data:blog.canonicalUrl" expr:data-numposts="data:commentsType.fbOption.numComments"></div>
+          <b:else/>
+          <div class="alert">El objeto <b>data:commentsType.fbOption.numComments</b> no existe.</div>
+        </b:if>
+        <b:else/> <!-- ...de no estar agrego un mensaje-->
+       <div class="alert">No se han encontrado opciones o el objecto <b>fbOption</b> no existe.</div>
+      </b:if>
     </b:includable>
 
     <b:includable id='backlinkDeleteIcon' var='backlink'><!-- vacio --></b:includable>
@@ -255,21 +308,20 @@
 
     <!-- navegación -->
     <b:includable id='nextprev'>
-      
       <div class='blog-pager' id='blog-pager'>
         <b:if cond='data:olderPageUrl'><a expr:href='data:olderPageUrl'  class='blog-pager-older-link'>antiguas</a></b:if>
         <b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl' class='blog-pager-newer-link'>recientes</a></b:if>
       </div>
-
     </b:includable>
    
     <b:includable id='post' var='post'>
-
        <!-- Imprimir entradas -->
       <b:if cond='data:view.isMultipleItems'> <!-- Valido para index/search/searchLabel -->
 
         <b:elseif cond='data:view.isPost'/> <!-- Valido para entradas/post -->
-        
+
+        <data:post.body/>
+
         <b:elseif cond='data:view.isPage'/> <!-- Valido para páginas/page -->
 
       </b:if>
@@ -279,27 +331,22 @@
     <b:includable id='postQuickEdit' var='post'><!-- vacio --></b:includable>
     <b:includable id='shareButtons' var='post'><!-- vacio --></b:includable>
     <b:includable id='status-message'><!-- vacio --></b:includable>
-    <b:includable id='threadedCommentForm' var='post'>
+    <b:includable id='threaded-comment-form' var='post'>
       <div class='comment-form'><a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-        <h4 id='comment-post-message'><data:messages.postAComment/></h4>
-        <data:this.messages.blogComment/>
-        <data:post.cmtfpIframe/>
-        <iframe class='blogger-iframe-colorize blogger-comment-from-post'  id='comment-editor' frameborder='0' width="100%" expr:height='data:cmtIframeInitialHeight ?: "245px"'  expr:src=''/>
-        <script type='text/javascript'>
-          BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
-        </script>
+         <iframe class='blogger-iframe-colorize blogger-comment-from-post' id='comment-editor' frameborder='0' width="100%" expr:height='data:cmtIframeInitialHeight ?: "245px"'   src=''/>
+         <data:post.cmtfpIframe/><script type='text/javascript'>BLOG_CMT_createIframe(&quot;<data:post.appRpcRelayPath/>&quot;);</script>
       </div>
     </b:includable>
 
-    <b:includable id='threadedCommentJs' var='post'>
+    <b:includable id='threaded_comment_js' var='post'>
       <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
       <b:template-script inline='true' name='threaded_comments'/>
       <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
     </b:includable>
 
     <b:includable id='threaded_comments' var='post'><!-- vacio --></b:includable>
-
   </b:widget>  
+
 </b:section>
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
