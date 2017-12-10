@@ -320,8 +320,6 @@
 
         <b:elseif cond='data:view.isPost'/> <!-- Valido para entradas/post -->
 
-        <data:post.body/>
-
         <b:elseif cond='data:view.isPage'/> <!-- Valido para páginas/page -->
 
       </b:if>
