@@ -2,10 +2,34 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
 
-<!-- chain.xml v0.2.5 | https://github.com/kurodezain/chain.xml -->
+<!-- chain.xml v0.3.1 | https://github.com/kurodezain/chain.xml -->
 
 <head>
-  <meta expr:charset='data:blog.encoding'/>
+
+<!-- Conjunto de Caracteres -->
+
+<meta expr:charset='data:blog.encoding'/>
+
+<!-- Generador de Contenido -->
+
+<meta content='blogger' name='generator'/>
+
+<!-- Rating -->
+
+<meta expr:content='data:blog.adultContent ? "mature" : "general"' name='rating'/>
+
+<!-- tipo -->
+
+<meta expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type'/>
+
+<!-- URL Canonica -->
+<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+
+<!-- favicon -->
+<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
+
+<!-- viewport (responsive) -->
+<meta content='width=device-width,minimum-scale=1,initial-scale=1, maximum-scale=1' name='viewport'/>
 
 <!-- meta etiquetas para seo -->
 
@@ -36,6 +60,7 @@
 
 <!-- meta description -->
 <b:if cond='data:blog.metaDescription'>
+
   <!-- si tenemos activadas las meta description -->
   <meta name="description" expr:content="data:blog.metaDescription"/>
 
@@ -43,13 +68,13 @@
 
   <!-- caso contrario -->
   
-  <meta name="description" expr:content='"Revisa la entrada : " + data:view.title'/>
+  <meta name="description" expr:content='"Leer entrada: " + data:view.title'/>
 
 </b:if>
 
 <!-- meta robots -->
 
-<b:if cond='data:view.isMultipleItems'>
+<b:if cond='data:view.isHomepage or data:view.isSingleItem'>
   
   <meta name="robots" content="Index, Follow"/>
 
@@ -68,14 +93,7 @@
 
 </b:if>
 
-<!-- URL Canonica -->
-<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
-
-<!-- favicon -->
-<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
-
-<!-- viewport (responsive) -->
-<meta content='width=device-width,minimum-scale=1,initial-scale=1, maximum-scale=1' name='viewport'/>
+<link href='https://plus.google.com/IDPAGINAGOOGLE' rel='Publisher'/>
 
 <!-- Open Graph/Twitter cards  -->
 
@@ -101,7 +119,6 @@
  
  <!-- si estamos en entradas individuales o páginas -->
 
-  <link href='https://plus.google.com/IDPAGINAGOOGLE' rel='Publisher'/>
   <meta property="og:title" expr:content="data:view.title" />
   <b:if cond='data:blog.metaDescription'>
       <meta property="og:description" expr:content='data:blog.metaDescription'/>
