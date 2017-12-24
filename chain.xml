@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
 
-<!-- chain.xml v0.3.1 | https://github.com/kurodezain/chain.xml -->
+<!-- chain.xml v0.3.20 | https://github.com/kurodezain/chain.xml -->
 
 <head>
 
@@ -14,11 +14,11 @@
 
 <meta content='blogger' name='generator'/>
 
-<!-- Rating -->
+<!-- Tipo de público -->
 
 <meta expr:content='data:blog.adultContent ? "mature" : "general"' name='rating'/>
 
-<!-- tipo -->
+<!-- tipo web -->
 
 <meta expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type'/>
 
@@ -73,6 +73,8 @@
 </b:if>
 
 <!-- meta robots -->
+<meta expr:content='data:blog.isMobile ? &quot;noindex,noarchive&quot; : data:pagefollow' name='robots'/>
+<!-- meta robots -->
 
 <b:if cond='data:view.isHomepage or data:view.isSingleItem'>
   
@@ -93,6 +95,7 @@
 
 </b:if>
 
+<!-- Google+ plus -->
 <link href='https://plus.google.com/IDPAGINAGOOGLE' rel='Publisher'/>
 
 <!-- Open Graph/Twitter cards  -->
