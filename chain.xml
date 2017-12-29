@@ -95,7 +95,7 @@
 
 </b:if>
 
-<!-- Google+ plus -->
+<!-- ID Google+ plus -->
 <link href='https://plus.google.com/IDPAGINAGOOGLE' rel='Publisher'/>
 
 <!-- Open Graph/Twitter cards  -->
@@ -190,13 +190,16 @@
 
     <b:includable id='main' var='top'>
     
-      <b:loop values='data:posts' var='post'>
 
         <b:if cond='data:view.isMultipleItems'> <!-- Si estamos en index/search/searchLabel -->
 
-          <b:include data='post' name='post'/> <!-- agrego entradas -->
+          <b:loop values='data:posts' var='post'>
+            <b:include data='post' name='post'/> <!-- agrego entradas -->
+          </b:loop>
 
           <b:else/> <!-- caso contrario, estamos en post/page -->
+          
+          <b:loop values='data:posts' var='post'>
 
           <b:include data='post' name='post'/> <!-- agrego entradas -->
 
@@ -243,11 +246,11 @@
             </b:if>
             
           </b:if>
+
+          </b:loop>
           
 
         </b:if>
-
-      </b:loop>
 
       <!-- navigation/navegación -->
       <b:include name='nextprev'/>
