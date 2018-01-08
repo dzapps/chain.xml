@@ -192,13 +192,14 @@
     
 
         <b:if cond='data:view.isMultipleItems'> <!-- Si estamos en index/search/searchLabel -->
-
+          <!-- bucle para las entradas en idnex/search/searchLabel -->
           <b:loop values='data:posts' var='post'>
             <b:include data='post' name='post'/> <!-- agrego entradas -->
           </b:loop>
 
           <b:else/> <!-- caso contrario, estamos en post/page -->
           
+          <!-- bucle para las entradas en post/page -->
           <b:loop values='data:posts' var='post'>
 
           <b:include data='post' name='post'/> <!-- agrego entradas -->
