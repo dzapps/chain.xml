@@ -151,7 +151,7 @@
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
-{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
+{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl.canonical/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl.canonical/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
 <style>
